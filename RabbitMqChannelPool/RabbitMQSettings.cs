@@ -1,4 +1,4 @@
-﻿namespace JetSms.Core.Utilities.MessageQueue.RabbitMqChannelPool
+﻿namespace Utilities.MessageQueue.RabbitMqChannelPool
 {
     public class RabbitMqSettings
     {

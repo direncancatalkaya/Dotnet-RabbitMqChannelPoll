@@ -2,7 +2,7 @@ using Microsoft.Extensions.ObjectPool;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 
-namespace JetSms.Core.Utilities.MessageQueue.RabbitMqChannelPool
+namespace Utilities.MessageQueue.RabbitMqChannelPool
 {
     public class RabbitModelPooledObjectPolicy : IPooledObjectPolicy<IModel>
     {

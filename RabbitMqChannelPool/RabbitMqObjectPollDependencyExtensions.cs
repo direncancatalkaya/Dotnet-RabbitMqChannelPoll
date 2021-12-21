@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.ObjectPool;
 using Microsoft.Extensions.Options;
 
-namespace JetSms.Core.Utilities.MessageQueue.RabbitMqChannelPool
+namespace Utilities.MessageQueue.RabbitMqChannelPool
 {
     public static class RabbitMqObjectPollDependencyExtensions
     {
