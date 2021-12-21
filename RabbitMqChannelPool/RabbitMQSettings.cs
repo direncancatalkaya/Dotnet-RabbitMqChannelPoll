@@ -8,6 +8,5 @@
         public int Port { get; set; }
         public string VirtualHost { get; set; }
         public string Exchange { get; set; }
-        public string Uri { get; set; }
     }
 }

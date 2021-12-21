@@ -9,17 +9,12 @@ namespace JetSms.Core.Utilities.MessageQueue.RabbitMqChannelPool
     {
         public static IServiceCollection AddRabbitMqChannelPoll(this IServiceCollection services)
         {
-            if (services == null)
-            {
-                throw new ArgumentNullException(nameof(services));
-            }
-            
-            services.AddSingleton<ObjectPoolProvider, DefaultObjectPoolProvider>();
+            if (services == null) throw new ArgumentNullException(nameof(services));
+
             services.AddSingleton(serviceProvider =>
             {
-                var provider = serviceProvider.GetRequiredService<ObjectPoolProvider>();
                 var settings = serviceProvider.GetRequiredService<IOptions<RabbitMqSettings>>();
-                return provider.Create(new RabbitModelPooledObjectPolicy(settings));
+                return new DefaultObjectPoolProvider().Create(new RabbitModelPooledObjectPolicy(settings));
             });
 
             return services;

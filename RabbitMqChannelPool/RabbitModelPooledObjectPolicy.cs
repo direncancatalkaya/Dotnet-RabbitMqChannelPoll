@@ -6,28 +6,13 @@ namespace JetSms.Core.Utilities.MessageQueue.RabbitMqChannelPool
 {
     public class RabbitModelPooledObjectPolicy : IPooledObjectPolicy<IModel>
     {
-        private readonly RabbitMqSettings _rabbitMqSettings;
-
         private readonly IConnection _connection;
+        private readonly RabbitMqSettings _rabbitMqSettings;
 
         public RabbitModelPooledObjectPolicy(IOptions<RabbitMqSettings> rabbitMqSettings)
         {
             _rabbitMqSettings = rabbitMqSettings.Value;
             _connection = GetConnection();
-        }
-
-        private IConnection GetConnection()
-        {
-            var factory = new ConnectionFactory()
-            {
-                HostName = _rabbitMqSettings.HostName,
-                UserName = _rabbitMqSettings.UserName,
-                Password = _rabbitMqSettings.Password,
-                Port = _rabbitMqSettings.Port,
-                VirtualHost = _rabbitMqSettings.VirtualHost,
-            };
-
-            return factory.CreateConnection();
         }
 
         public IModel Create()
@@ -41,6 +26,20 @@ namespace JetSms.Core.Utilities.MessageQueue.RabbitMqChannelPool
 
             obj?.Dispose();
             return false;
+        }
+
+        private IConnection GetConnection()
+        {
+            var factory = new ConnectionFactory
+            {
+                HostName = _rabbitMqSettings.HostName,
+                UserName = _rabbitMqSettings.UserName,
+                Password = _rabbitMqSettings.Password,
+                Port = _rabbitMqSettings.Port,
+                VirtualHost = _rabbitMqSettings.VirtualHost
+            };
+
+            return factory.CreateConnection();
         }
     }
 }
