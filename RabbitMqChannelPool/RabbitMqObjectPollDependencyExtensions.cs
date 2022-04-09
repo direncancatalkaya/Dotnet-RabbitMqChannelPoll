@@ -2,6 +2,7 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.ObjectPool;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Utilities.MessageQueue.RabbitMqChannelPool
 {
@@ -11,10 +12,12 @@ namespace Utilities.MessageQueue.RabbitMqChannelPool
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
 
+            services.TryAddSingleton<ObjectPoolProvider, DefaultObjectPoolProvider>();
+
             services.AddSingleton(serviceProvider =>
             {
                 var settings = serviceProvider.GetRequiredService<IOptions<RabbitMqSettings>>();
-                return new DefaultObjectPoolProvider().Create(new RabbitModelPooledObjectPolicy(settings));
+                return new RabbitModelPooledObjectPolicy(settings);
             });
 
             return services;
